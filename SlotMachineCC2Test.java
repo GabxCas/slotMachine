@@ -34,9 +34,9 @@ public class SlotMachineCC2Test {
         machine.addWheel(2);
         machine.addWheel(3);
 
-        machine.addSymbol(1, "red");
-        machine.addSymbol(2, "blue");
-        machine.addSymbol(3, "green");
+        machine.addSymbol(1, "red", "normal");
+        machine.addSymbol(2, "blue", "normal");
+        machine.addSymbol(3, "green", "normal");
 
         String[] inicial = machine.configuration();
 
@@ -76,8 +76,8 @@ public class SlotMachineCC2Test {
 
         machine.addWheel(1);
 
-        machine.addSymbol(1, "red");
-        machine.addSymbol(1, "blue");
+        machine.addSymbol(1, "red", "normal");
+        machine.addSymbol(1, "blue", "normal");
 
         machine.lock(1);
 
