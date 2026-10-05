@@ -374,4 +374,68 @@ private void refreshJackpot() {
             JOptionPane.showMessageDialog(null, message, "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+
+    /**
+     * Returns the number of wheels in the machine.
+     * @return number of wheels.
+     */
+    public int getNumberOfWheels() {
+        return wheels.size();
+    }
+
+    /**
+     * Returns the number of distinct symbols currently in the machine.
+     * @return number of distinct symbols.
+     */
+    public int getNumberOfDistinctSymbols() {
+        return distinctSymbols();
+    }
+
+    /**
+     * Returns a list with the distinct symbols currently in the machine.
+     * @return list of distinct symbol colors.
+     */
+    public ArrayList<String> getDistinctSymbolList() {
+        ArrayList<String> distinct = new ArrayList<>();
+        for (String s : symbols()) {
+            if (!distinct.contains(s)) {
+                distinct.add(s);
+            }
+        }
+        return distinct;
+    }
+
+    /**
+     * Returns the number of symbols in a given wheel.
+     * @param wheel wheel position, starting at one.
+     * @return number of symbols in that wheel, or 0 if the wheel does not exist.
+     */
+    public int getWheelSymbolCount(int wheel) {
+        if (!validWheel(wheel)) {
+            return 0;
+        }
+        return wheels.get(wheel - 1).getSymbols().size();
+    }  
+
+    /**
+     * Checks whether a wheel would show the target symbol after a given number
+     * of spins, without modifying the machine.
+     * @param wheel wheel position, starting at one.
+     * @param steps number of spins to simulate.
+     * @param target target symbol color.
+     * @return true if after "steps" spins the wheel would show the target.
+     */
+    public boolean wouldShow(int wheel, int steps, String target) {
+        if (!validWheel(wheel) || target == null) {
+            return false;
+        }
+        ArrayList<Symbol> symbols = wheels.get(wheel - 1).getSymbols();
+        if (symbols.isEmpty()) {
+            return false;
+        }
+        int size = symbols.size();
+        int current = wheels.get(wheel - 1).getVisibleIndex();
+        int index = (current + steps) % size;
+        return symbols.get(index).getColor().equalsIgnoreCase(target);
+    }
 }
