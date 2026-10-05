@@ -213,4 +213,12 @@ public class Wheel {
             symbol.makeInvisible();
         }
     }
+
+    /**
+     * Returns the index of the currently visible symbol.
+     * @return visible index.
+     */
+    public int getVisibleIndex() {
+        return visibleIndex;
+    }
 }
