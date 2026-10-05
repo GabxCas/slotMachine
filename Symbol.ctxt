@@ -1,0 +1,11 @@
+#BlueJ class context
+#Sun Sep 20 15:46:48 COT 2026
+comment0.target=Symbol
+comment0.text=\r\n Representa un s\u00EDmbolo en la rueda de la m\u00E1quina tragamonedas.\r\n
+comment1.params=color
+comment1.target=Symbol(java.lang.String)
+comment1.text=\r\n Constructor del s\u00EDmbolo.\r\n @param color Nombre o est\u00E1ndar CSS del color.\r\n
+comment2.target=java.lang.String getColor()
+comment3.target=void makeVisible()
+comment4.target=void makeInvisible()
+numComments=5

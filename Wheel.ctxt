@@ -1,0 +1,22 @@
+#BlueJ class context
+#Sun Sep 20 16:18:04 COT 2026
+comment0.target=Wheel
+comment0.text=\r\n Representacion de la rueda en la maquina tragamonedas\r\n
+comment1.target=Wheel()
+comment1.text=\r\n Constructor de la rueda.\r\n
+comment2.params=color
+comment2.target=void addSymbol(java.lang.String)
+comment2.text=\r\n Adiciona un s\u00EDmbolo junto con su color de la rueda\r\n
+comment3.params=color
+comment3.target=boolean delSymbol(java.lang.String)
+comment3.text=\r\n Elimina la primera presencia del simbolo indicado\r\n
+comment4.params=color
+comment4.target=boolean placeSymbol(java.lang.String)
+comment4.text=\r\n Selecciona el s\u00EDmbolo indicado como el visible actual.\r\n
+comment5.target=void spin()
+comment5.text=\r\n Gira la rueda pasando al siguiente s\u00EDmbolo.\r\n
+comment6.target=java.lang.String getVisibleColor()
+comment6.text=\r\n Retorna el color del s\u00EDmbolo visible actual.\r\n
+comment7.target=java.util.ArrayList getSymbols()
+comment7.text=\r\n Retorna la lista con todos los s\u00EDmbolos de la rueda.\r\n
+numComments=8
