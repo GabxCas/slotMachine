@@ -374,4 +374,62 @@ private void refreshJackpot() {
             JOptionPane.showMessageDialog(null, message, "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+
+    /**
+ * Adds a wheel of the given type.
+ * @param pos insertion position.
+ * @param type wheel type ("normal", "lefty", "rebel").
+ */
+public void addWheel(int pos, String type) {
+    int index = adjustPos(pos);
+    Wheel w;
+    switch (type.toLowerCase()) {
+        case "lefty": w = new LeftyWheel(25, 80); break;
+        case "rebel": w = new RebelWheel(25, 80); break;
+        default:      w = new NormalWheel(25, 80);
+    }
+    wheels.add(index, w);
+    layoutWheels();
+    linkLeftyWheels();
+    if (isVisible) w.makeVisible();
+    refreshJackpot();
+    ok = true;
+}
+
+/**
+ * Adds a symbol of a specific type to a wheel.
+ * @param pos wheel position.
+ * @param color symbol color.
+ * @param type symbol type ("normal", "ephemeral", "shy", "golden").
+ */
+public void addSymbol(int pos, String color, String type) {
+    if (!validWheel(pos)) { fail("Wheel not found"); return; }
+    if (!validColor(color) && !type.equalsIgnoreCase("golden")) {
+        fail("Unsupported color");
+        return;
+    }
+    Symbol s;
+    switch (type.toLowerCase()) {
+        case "ephemeral": s = new EphemeralSymbol(color); break;
+        case "shy":       s = new ShySymbol(color); break;
+        case "golden":    s = new GoldenSymbol(); break;
+        default:          s = new NormalSymbol(color);
+    }
+    wheels.get(pos - 1).addSymbol(s);
+    refreshJackpot();
+    ok = true;
+}
+
+/**
+ * Links lefty wheels to the wheel immediately to their left.
+ */
+private void linkLeftyWheels() {
+    for (int i = 0; i < wheels.size(); i++) {
+        Wheel w = wheels.get(i);
+        if (w instanceof LeftyWheel) {
+            Wheel left = (i > 0) ? wheels.get(i - 1) : null;
+            ((LeftyWheel) w).setLeftWheel(left);
+        }
+    }
+
 }
