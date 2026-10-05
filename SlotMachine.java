@@ -32,9 +32,31 @@ public class SlotMachine {
         int index = adjustPos(pos);
         wheels.add(index, new NormalWheel(25, 80));
         layoutWheels();
+        linkLeftyWheels();
         if (isVisible) {
             wheels.get(index).makeVisible();
         }
+        refreshJackpot();
+        ok = true;
+    }
+
+    /**
+     * Adiciona una rueda del tipo indicado.
+     * @param pos posicion de insercion.
+     * @param type tipo de rueda ("normal", "lefty", "rebel").
+     */
+    public void addWheel(int pos, String type) {
+        int index = adjustPos(pos);
+        Wheel w;
+        switch (type.toLowerCase()) {
+            case "lefty": w = new LeftyWheel(25, 80); break;
+            case "rebel": w = new RebelWheel(25, 80); break;
+            default:      w = new NormalWheel(25, 80);
+        }
+        wheels.add(index, w);
+        layoutWheels();
+        linkLeftyWheels();
+        if (isVisible) w.makeVisible();
         refreshJackpot();
         ok = true;
     }
@@ -45,15 +67,15 @@ public class SlotMachine {
      */
     public void delWheel(int pos) {
         if (!validWheel(pos)) {
-            Wheel w = wheels.get(pos - 1);
-            if (w instanceof RebelWheel) {
-                fail("A rebel wheel cannot be deleted");
-                return;
-            }
             fail("No es posible eliminar esa rueda");
             return;
         }
-        wheels.get(pos - 1).makeInvisible();
+        Wheel w = wheels.get(pos - 1);
+        if (w instanceof RebelWheel) {
+            fail("A rebel wheel cannot be deleted");
+            return;
+        }
+        w.makeInvisible();
         wheels.remove(pos - 1);
         layoutWheels();
         refreshJackpot();
@@ -75,6 +97,30 @@ public class SlotMachine {
             return;
         }
         wheels.get(pos - 1).addSymbol(new NormalSymbol(color));
+        refreshJackpot();
+        ok = true;
+    }
+
+    /**
+     * Adiciona un simbolo de tipo especifico a una rueda.
+     * @param pos posicion de la rueda.
+     * @param color color del simbolo.
+     * @param type tipo de simbolo ("normal", "ephemeral", "shy", "golden").
+     */
+    public void addSymbol(int pos, String color, String type) {
+        if (!validWheel(pos)) { fail("Wheel not found"); return; }
+        if (!validColor(color) && !type.equalsIgnoreCase("golden")) {
+            fail("Unsupported color");
+            return;
+        }
+        Symbol s;
+        switch (type.toLowerCase()) {
+            case "ephemeral": s = new EphemeralSymbol(color); break;
+            case "shy":       s = new ShySymbol(color); break;
+            case "golden":    s = new GoldenSymbol(); break;
+            default:          s = new NormalSymbol(color);
+        }
+        wheels.get(pos - 1).addSymbol(s);
         refreshJackpot();
         ok = true;
     }
@@ -158,15 +204,16 @@ public class SlotMachine {
             return;
         }
         if (wheel1 == wheel2) {
-            Wheel first = wheels.get(wheel1 - 1);
-            Wheel second = wheels.get(wheel2 - 1);
-            if (first instanceof RebelWheel || second instanceof RebelWheel) {
-                fail("A rebel wheel cannot be swapped");
-                return;
-                }
+            ok = true;
+            return;
         }
         Wheel first = wheels.get(wheel1 - 1);
-        wheels.set(wheel1 - 1, wheels.get(wheel2 - 1));
+        Wheel second = wheels.get(wheel2 - 1);
+        if (first instanceof RebelWheel || second instanceof RebelWheel) {
+            fail("A rebel wheel cannot be swapped");
+            return;
+        }
+        wheels.set(wheel1 - 1, second);
         wheels.set(wheel2 - 1, first);
         layoutWheels();
         refreshJackpot();
@@ -355,17 +402,26 @@ public class SlotMachine {
             wheel.setPosition(x, 80);
             x += 85;
         }
-        linkLeftyWheels();
     }
 
-private void refreshJackpot() {
-    machine.changeColor(isjackpot() ? "green" : "black");
-    if (isVisible) {
-        for (Wheel wheel : wheels) {
-            wheel.makeVisible();
+    private void linkLeftyWheels() {
+        for (int i = 0; i < wheels.size(); i++) {
+            Wheel w = wheels.get(i);
+            if (w instanceof LeftyWheel) {
+                Wheel left = (i > 0) ? wheels.get(i - 1) : null;
+                ((LeftyWheel) w).setLeftWheel(left);
+            }
         }
     }
-}
+
+    private void refreshJackpot() {
+        machine.changeColor(isjackpot() ? "green" : "black");
+        if (isVisible) {
+            for (Wheel wheel : wheels) {
+                wheel.makeVisible();
+            }
+        }
+    }
 
     private void pauseIfVisible() {
         if (!isVisible) {
@@ -425,7 +481,7 @@ private void refreshJackpot() {
             return 0;
         }
         return wheels.get(wheel - 1).getSymbols().size();
-    }  
+    }
 
     /**
      * Checks whether a wheel would show the target symbol after a given number
