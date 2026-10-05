@@ -52,9 +52,9 @@ public class SlotMachineC2Test {
         machine.addWheel(2);
         machine.addWheel(3);
 
-        machine.addSymbol(1, "red");
-        machine.addSymbol(2, "blue");
-        machine.addSymbol(3, "green");
+        machine.addSymbol(1, "red", "normal");
+        machine.addSymbol(2, "blue", "normal");
+        machine.addSymbol(3, "green", "normal");
 
         check(machine.ok(), "No se pudieron crear las ruedas o simbolos.");
 
@@ -92,8 +92,8 @@ public class SlotMachineC2Test {
         machine.addWheel(1);
         machine.addWheel(2);
 
-        machine.addSymbol(1, "red");
-        machine.addSymbol(2, "blue");
+        machine.addSymbol(1, "red", "normal");
+        machine.addSymbol(2, "blue", "normal");
 
         String[] antes = machine.configuration();
 
@@ -118,8 +118,8 @@ public class SlotMachineC2Test {
         SlotMachine machine = crearMaquina();
 
         machine.addWheel(1);
-        machine.addSymbol(1, "red");
-        machine.addSymbol(1, "blue");
+        machine.addSymbol(1, "red", "normal");
+        machine.addSymbol(1, "blue", "normal");
 
         machine.lock(1);
 
@@ -146,8 +146,8 @@ public class SlotMachineC2Test {
         SlotMachine machine = crearMaquina();
 
         machine.addWheel(1);
-        machine.addSymbol(1, "red");
-        machine.addSymbol(1, "blue");
+        machine.addSymbol(1, "red", "normal");
+        machine.addSymbol(1, "blue", "normal");
 
         machine.lock(1);
 
@@ -176,7 +176,7 @@ public class SlotMachineC2Test {
         SlotMachine machine = crearMaquina();
 
         machine.addWheel(1);
-        machine.addSymbol(1, "red");
+        machine.addSymbol(1, "red", "normal");
 
         machine.lock(5);
 
@@ -193,9 +193,9 @@ public class SlotMachineC2Test {
 
         machine.addWheel(1);
 
-        machine.addSymbol(1, "red");
-        machine.addSymbol(1, "blue");
-        machine.addSymbol(1, "green");
+        machine.addSymbol(1, "red", "normal");
+        machine.addSymbol(1, "blue", "normal");
+        machine.addSymbol(1, "green", "normal");
 
         String[] antes = machine.configuration();
 
@@ -225,8 +225,8 @@ public class SlotMachineC2Test {
         SlotMachine machine = crearMaquina();
 
         machine.addWheel(1);
-        machine.addSymbol(1, "red");
-        machine.addSymbol(1, "blue");
+        machine.addSymbol(1, "red", "normal");
+        machine.addSymbol(1, "blue", "normal");
 
         String[] antes = machine.configuration();
 
@@ -255,9 +255,9 @@ public class SlotMachineC2Test {
 
         machine.addWheel(1);
 
-        machine.addSymbol(1, "red");
-        machine.addSymbol(1, "blue");
-        machine.addSymbol(1, "green");
+        machine.addSymbol(1, "red", "normal");
+        machine.addSymbol(1, "blue", "normal");
+        machine.addSymbol(1, "green", "normal");
 
         machine.lock(1);
 
@@ -286,14 +286,14 @@ public class SlotMachineC2Test {
         machine.addWheel(2);
         machine.addWheel(3);
 
-        machine.addSymbol(1, "red");
-        machine.addSymbol(1, "blue");
+        machine.addSymbol(1, "red", "normal");
+        machine.addSymbol(1, "blue", "normal");
 
-        machine.addSymbol(2, "blue");
-        machine.addSymbol(2, "green");
+        machine.addSymbol(2, "blue", "normal");
+        machine.addSymbol(2, "green", "normal");
 
-        machine.addSymbol(3, "green");
-        machine.addSymbol(3, "yellow");
+        machine.addSymbol(3, "green", "normal");
+        machine.addSymbol(3, "yellow", "normal");
 
         String[] nuevaConfiguracion = {
             "blue",
@@ -330,11 +330,11 @@ public class SlotMachineC2Test {
         machine.addWheel(1);
         machine.addWheel(2);
 
-        machine.addSymbol(1, "red");
-        machine.addSymbol(1, "blue");
+        machine.addSymbol(1, "red", "normal");
+        machine.addSymbol(1, "blue", "normal");
 
-        machine.addSymbol(2, "blue");
-        machine.addSymbol(2, "green");
+        machine.addSymbol(2, "blue", "normal");
+        machine.addSymbol(2, "green", "normal");
 
         String[] antes = machine.configuration();
 
@@ -370,14 +370,14 @@ public class SlotMachineC2Test {
         machine.addWheel(2);
         machine.addWheel(3);
 
-        machine.addSymbol(1, "red");
-        machine.addSymbol(1, "blue");
+        machine.addSymbol(1, "red", "normal");
+        machine.addSymbol(1, "blue", "normal");
 
-        machine.addSymbol(2, "green");
-        machine.addSymbol(2, "yellow");
+        machine.addSymbol(2, "green", "normal");
+        machine.addSymbol(2, "yellow", "normal");
 
-        machine.addSymbol(3, "blue");
-        machine.addSymbol(3, "green");
+        machine.addSymbol(3, "blue", "normal");
+        machine.addSymbol(3, "green", "normal");
 
         machine.lock(2);
 
