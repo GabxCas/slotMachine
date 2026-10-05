@@ -10,6 +10,7 @@ public class Wheel {
     private boolean isVisible;
     private int xPosition;
     private int yPosition;
+    private boolean locked;
 
     /**
      * Construye una rueda en una posicion por defecto.
@@ -29,6 +30,7 @@ public class Wheel {
         isVisible = false;
         xPosition = x;
         yPosition = y;
+        locked = false;
         frame = new Rectangle();
         frame.changeSize(70, 100);
         frame.moveHorizontal(x - 70);
@@ -85,10 +87,42 @@ public class Wheel {
      * Gira la rueda hasta el siguiente simbolo.
      */
     public void spin() {
-        if (!symbols.isEmpty()) {
+        if (!locked && !symbols.isEmpty()) {
             visibleIndex = (visibleIndex + 1) % symbols.size();
             refresh();
         }
+    }
+
+
+    /**
+     * Fija la rueda para impedir que gire.
+     */
+    public void lock() {
+        locked = true;
+    }
+
+    /**
+     * Suelta la rueda para permitir su giro.
+     */
+    public void unlock() {
+        locked = false;
+    }
+
+    /**
+     * Indica si la rueda esta fijada.
+     * @return true si esta fijada.
+     */
+    public boolean isLocked() {
+        return locked;
+    }
+
+    /**
+     * Indica si la rueda contiene el simbolo indicado.
+     * @param color color del simbolo.
+     * @return true si existe.
+     */
+    public boolean hasSymbol(String color) {
+        return indexOf(color) != -1;
     }
 
     /**

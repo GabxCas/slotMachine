@@ -41,8 +41,6 @@ public class Symbol {
      */
     public void makeInvisible() {
         figure.makeInvisible();
-        xPosition = 20;
-        yPosition = 15;
     }
 
     /**

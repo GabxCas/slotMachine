@@ -113,11 +113,101 @@ public class SlotMachine {
      * @param wheel posicion de la rueda.
      */
     public void spin(int wheel) {
+        spin(wheel, 1);
+    }
+
+    /**
+     * Gira una rueda un numero de pasos.
+     * @param wheel posicion de la rueda.
+     * @param steps numero de pasos a girar.
+     */
+    public void spin(int wheel, int steps) {
         if (!validWheel(wheel)) {
             fail("Rueda no existe");
             return;
         }
-        wheels.get(wheel - 1).spin();
+        if (steps < 0) {
+            fail("El numero de pasos no puede ser negativo");
+            return;
+        }
+        if (wheels.get(wheel - 1).isLocked()) {
+            fail("La rueda esta fijada");
+            return;
+        }
+        for (int i = 0; i < steps; i++) {
+            wheels.get(wheel - 1).spin();
+            refreshJackpot();
+            pauseIfVisible();
+        }
+        ok = true;
+    }
+
+    /**
+     * Intercambia dos ruedas.
+     * @param wheel1 posicion de la primera rueda.
+     * @param wheel2 posicion de la segunda rueda.
+     */
+    public void swap(int wheel1, int wheel2) {
+        if (!validWheel(wheel1) || !validWheel(wheel2)) {
+            fail("Rueda no existe");
+            return;
+        }
+        if (wheel1 == wheel2) {
+            ok = true;
+            return;
+        }
+        Wheel first = wheels.get(wheel1 - 1);
+        wheels.set(wheel1 - 1, wheels.get(wheel2 - 1));
+        wheels.set(wheel2 - 1, first);
+        layoutWheels();
+        refreshJackpot();
+        ok = true;
+    }
+
+    /**
+     * Fija una rueda para impedir que gire.
+     * @param wheel posicion de la rueda.
+     */
+    public void lock(int wheel) {
+        if (!validWheel(wheel)) {
+            fail("Rueda no existe");
+            return;
+        }
+        wheels.get(wheel - 1).lock();
+        ok = true;
+    }
+
+    /**
+     * Suelta una rueda para permitir nuevamente su giro.
+     * @param wheel posicion de la rueda.
+     */
+    public void unlock(int wheel) {
+        if (!validWheel(wheel)) {
+            fail("Rueda no existe");
+            return;
+        }
+        wheels.get(wheel - 1).unlock();
+        ok = true;
+    }
+
+    /**
+     * Deja la maquina en la configuracion indicada.
+     * @param symbols colores que debe mostrar cada rueda.
+     */
+    public void setSymbols(String[] symbols) {
+        if (symbols == null || symbols.length != wheels.size()) {
+            fail("Configuracion invalida");
+            return;
+        }
+        for (int i = 0; i < symbols.length; i++) {
+            if (symbols[i] == null || !wheels.get(i).hasSymbol(symbols[i])) {
+                fail("Configuracion invalida");
+                return;
+            }
+        }
+        for (int i = 0; i < symbols.length; i++) {
+            wheels.get(i).placeSymbol(symbols[i]);
+        }
         refreshJackpot();
         ok = true;
     }
@@ -131,7 +221,9 @@ public class SlotMachine {
             return;
         }
         for (Wheel wheel : wheels) {
-            wheel.spin();
+            if (!wheel.isLocked()) {
+                wheel.spin();
+            }
         }
         refreshJackpot();
         ok = true;
@@ -256,12 +348,24 @@ public class SlotMachine {
         }
     }
 
-    private void refreshJackpot() {
-        machine.changeColor(isjackpot() ? "green" : "black");
+private void refreshJackpot() {
+    machine.changeColor(isjackpot() ? "green" : "black");
+    if (isVisible) {
+        for (Wheel wheel : wheels) {
+            wheel.makeVisible();
+        }
+    }
+}
+
+    private void pauseIfVisible() {
         if (!isVisible) {
             return;
         }
-        machine.makeVisible();
+        try {
+            Thread.sleep(150);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     private void fail(String message) {

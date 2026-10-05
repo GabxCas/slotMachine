@@ -1,0 +1,19 @@
+#BlueJ class context
+#Sun Oct 04 20:11:14 COT 2026
+comment0.target=SlotMachineCC2Test
+comment0.text=\r\n Pruebas compartidas del Ciclo 2.\r\n\r\n Estas pruebas verifican funcionalidades que deben\r\n mantenerse correctas al integrar los cambios del ciclo.\r\n
+comment1.target=void runAll()
+comment1.text=\r\n Ejecuta todas las pruebas compartidas.\r\n
+comment2.target=void testSwapYConfiguracion()
+comment2.text=\r\n Prueba compartida 1\:\r\n verifica que swap modifica correctamente la configuracion\r\n y que la configuracion final puede consultarse.\r\n
+comment3.target=void testBloqueoYSpin()
+comment3.text=\r\n Prueba compartida 2\:\r\n verifica que una rueda bloqueada no gira y que,\r\n despues de desbloquearla, puede volver a girar.\r\n
+comment4.target=SlotMachine crearMaquina()
+comment4.text=\r\n Crea una maquina en modo invisible.\r\n
+comment5.params=a b
+comment5.target=boolean mismaConfiguracion(java.lang.String[], java.lang.String[])
+comment5.text=\r\n Compara dos configuraciones.\r\n
+comment6.params=condition message
+comment6.target=void check(boolean, java.lang.String)
+comment6.text=\r\n Verifica una condicion.\r\n
+numComments=7

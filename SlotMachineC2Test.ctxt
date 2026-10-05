@@ -1,0 +1,37 @@
+#BlueJ class context
+#Sun Oct 04 20:00:32 COT 2026
+comment0.target=SlotMachineC2Test
+comment0.text=\r\n Pruebas funcionales del Ciclo 2 de SlotMachine.\r\n\r\n Se prueban\:\r\n 1. Intercambio de ruedas (swap)\r\n 2. Bloqueo y desbloqueo de ruedas\r\n 3. Giro de una rueda por un numero de pasos\r\n 4. Configuracion de la maquina\r\n 5. Comportamientos invalidos\r\n\r\n Todas las pruebas se realizan con la maquina invisible.\r\n
+comment1.target=void runAll()
+comment1.text=\r\n Ejecuta todas las pruebas del Ciclo 2.\r\n
+comment10.target=void testSetSymbols()
+comment10.text=\r\n Prueba que setSymbols establece correctamente\r\n la configuracion solicitada.\r\n
+comment11.target=void testSetSymbolsInvalido()
+comment11.text=\r\n Prueba que setSymbols rechaza una configuracion\r\n que contiene simbolos que no corresponden.\r\n
+comment12.target=void testSpinAllConRuedaBloqueada()
+comment12.text=\r\n Prueba que spin() respeta las ruedas bloqueadas.\r\n
+comment13.target=SlotMachine crearMaquina()
+comment13.text=\r\n Crea una maquina nueva en modo invisible.\r\n
+comment14.params=a b
+comment14.target=boolean mismaConfiguracion(java.lang.String[], java.lang.String[])
+comment14.text=\r\n Compara dos configuraciones.\r\n
+comment15.params=condition message
+comment15.target=void check(boolean, java.lang.String)
+comment15.text=\r\n Verifica una condicion.\r\n
+comment2.target=void testSwap()
+comment2.text=\r\n Prueba que swap intercambia correctamente dos ruedas.\r\n
+comment3.target=void testSwapInvalido()
+comment3.text=\r\n Prueba que swap rechaza posiciones inexistentes.\r\n
+comment4.target=void testLock()
+comment4.text=\r\n Prueba que una rueda puede bloquearse.\r\n
+comment5.target=void testUnlock()
+comment5.text=\r\n Prueba que una rueda puede desbloquearse.\r\n
+comment6.target=void testLockInvalido()
+comment6.text=\r\n Prueba que lock rechaza una rueda inexistente.\r\n
+comment7.target=void testSpinSteps()
+comment7.text=\r\n Prueba el giro de una rueda una cantidad determinada de pasos.\r\n
+comment8.target=void testSpinStepsInvalido()
+comment8.text=\r\n Prueba que spin por pasos rechaza una rueda inexistente.\r\n
+comment9.target=void testSpinConRuedaBloqueada()
+comment9.text=\r\n Comprueba que una rueda bloqueada no gira aunque se soliciten pasos.\r\n
+numComments=16
