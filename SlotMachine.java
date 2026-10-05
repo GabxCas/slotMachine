@@ -30,7 +30,7 @@ public class SlotMachine {
      */
     public void addWheel(int pos) {
         int index = adjustPos(pos);
-        wheels.add(index, new Wheel(25, 80));
+        wheels.add(index, new NormalWheel(25, 80));
         layoutWheels();
         if (isVisible) {
             wheels.get(index).makeVisible();
@@ -45,6 +45,11 @@ public class SlotMachine {
      */
     public void delWheel(int pos) {
         if (!validWheel(pos)) {
+            Wheel w = wheels.get(pos - 1);
+            if (w instanceof RebelWheel) {
+                fail("A rebel wheel cannot be deleted");
+                return;
+            }
             fail("No es posible eliminar esa rueda");
             return;
         }
@@ -69,7 +74,7 @@ public class SlotMachine {
             fail("Color no soportado");
             return;
         }
-        wheels.get(pos - 1).addSymbol(color);
+        wheels.get(pos - 1).addSymbol(new NormalSymbol(color));
         refreshJackpot();
         ok = true;
     }
@@ -153,8 +158,12 @@ public class SlotMachine {
             return;
         }
         if (wheel1 == wheel2) {
-            ok = true;
-            return;
+            Wheel first = wheels.get(wheel1 - 1);
+            Wheel second = wheels.get(wheel2 - 1);
+            if (first instanceof RebelWheel || second instanceof RebelWheel) {
+                fail("A rebel wheel cannot be swapped");
+                return;
+                }
         }
         Wheel first = wheels.get(wheel1 - 1);
         wheels.set(wheel1 - 1, wheels.get(wheel2 - 1));
@@ -346,6 +355,7 @@ public class SlotMachine {
             wheel.setPosition(x, 80);
             x += 85;
         }
+        linkLeftyWheels();
     }
 
 private void refreshJackpot() {
